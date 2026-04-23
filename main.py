@@ -43,9 +43,14 @@ while repite:
     print(tablero_rival_barcos)
     print("---------------------------------------\n")
 
+    if not repite:
+        print("Agua, turno del rival")
+
     # para terminar el juego:
     if "o" not in tablero_rival_barcos:
-        print("¡Victoria! Has hundido todos los barcos.")
+        print("Fin del juego,has hundido todos los barcos.")
         break
+
+    
 
 
