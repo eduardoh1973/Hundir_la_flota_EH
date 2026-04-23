@@ -1,4 +1,5 @@
 from utils import crear_tablero, colocar_barcos, disparar, crear_lista_barcos, crear_barco_eslora
+import random
 
 #variables jugador
 tablero_jugador_disparos = crear_tablero() #tablero donde se marcan los disparos del jugador.
@@ -31,25 +32,44 @@ print("tablero jugador con barcos:")
 print(tablero_jugador_barcos)
 print("----------------")
 
-
-#Turno del jugador
-print("Tira el jugador")
-repite = True
-while repite:
-    repite = disparar(tablero_rival_barcos)
+while True:
+    #Turno del jugador
+    print("Tira el jugador")
+    while True:
+        tocado = disparar(tablero_rival_barcos)
     
     
-    print("\n--- Estado actual del tablero rival ---")
-    print(tablero_rival_barcos)
-    print("---------------------------------------\n")
+        print("\n--- Estado actual del tablero rival ---")
+        print(tablero_rival_barcos)
+        print("---------------------------------------\n")
 
-    if not repite:
-        print("Agua, turno del rival")
+        if not tocado:
+             print("Agua, turno del rival")
+             break
+    
+    # para terminar el juego:        
+        if "o" not in tablero_rival_barcos:
+             print("Fin del juego, has hundido todos los barcos")
+             exit()
 
-    # para terminar el juego:
-    if "o" not in tablero_rival_barcos:
-        print("Fin del juego,has hundido todos los barcos.")
-        break
+    #Turno del rival
+    print("tira el rival")
+    while True:
+        #el rival tira aleatoriamente dentro de las coordenadas del tablero
+        f, c = random.randint(0, 9), random.randint(0, 9) 
+          
+        if tablero_jugador_barcos[f, c] == "o":
+            tablero_jugador_barcos[f, c] = "X"
+            print("Tocado por tu rival")
+
+        if "o" not in tablero_jugador_barcos:
+                print("Fin del juego, el rival ha hundido todos tus barcos")
+                exit()
+        else:
+            tablero_jugador_barcos[f, c] = "A"
+            print("El rival ha disparado agua. Tu turno.")
+            break 
+
 
     
 
